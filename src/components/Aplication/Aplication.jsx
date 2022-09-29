@@ -24,7 +24,7 @@ class Aplication extends Component {
   };
 
   // Если при обновлении запрос не равен между стейтами, тогда делаем фетч
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_, prevState) {
     if (prevState.searchQuery !== this.state.searchQuery) {
       this.getImages();
     }
@@ -32,6 +32,9 @@ class Aplication extends Component {
 
   // Принимаем с формы запрос и пишем в стейт + сбрасываем после отправки ключи из стейта
   onChangeQuery = query => {
+    if (this.state.searchQuery === query) {
+      return this.setState({ currentPage: this.state.currentPage + 1 });
+    }
     this.setState({
       images: [],
       currentPage: 1,
